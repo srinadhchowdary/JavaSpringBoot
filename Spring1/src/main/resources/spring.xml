@@ -7,8 +7,16 @@
     <!--    <bean id = "alien" class = "com.telusko.Alien" scope="prototype"></bean>-->
 
 
-    <bean id = "alien" class = "com.telusko.Alien">
-<!--        <property name="age" value="1234">     </property>-->
+    <bean id = "alien" class = "com.telusko.Alien" autowire="byType">
+        <property name="age" value="33">      </property>
+<!--        <property name="com" ref="com2">    </property>-->
+
+<!--        <property name="com" ref="desk1">    </property>-->
+
+
+
+
+        <!--        <property name="age" value="1234">     </property>-->
 <!-- Sequence
             <constructor-arg value="108"/>-->
 <!--        <constructor-arg value ="143"/>-->
@@ -29,16 +37,24 @@
 <!--            or another solution-->
 <!--            if we want this to work even not in sequential-->
 <!--            use the annotation @constructor-properties above to the constructor-->
-        <constructor-arg name="age" value="22"/>
-        <constructor-arg name="marks" value="544"/>
-        <constructor-arg name="lap" ref="lap1"/>
+
+
+<!--        <constructor-arg name="age" value="22"/>-->
+<!--        <constructor-arg name="marks" value="544"/>-->
+<!--        <constructor-arg name="lap" ref="lap1"/>-->
 
 
         <!--        <property name="marks" value="2233"/>-->
-<!--        <property name="lap" ref="lap1">    </property>-->
+
     </bean>
 
-    <bean id = "lap1" class = "com.telusko.Laptop">     </bean>
+<!--com object is mapped to id com-->
+<!--    <bean id = "com1" class = "com.telusko.Laptop" primary="true">     </bean>-->
+<!--    <bean id = "com2" class = "com.telusko.Desktop" lazy-init="true">     </bean>-->
+<!--    <bean id = "Desktop" class = "com.telusko.Desktop" lazy-init="true">     </bean>-->
+<!--    <bean class = "com.telusko.Laptop">     </bean>-->
+
+    <bean class="com.telusko.Desktop">   </bean>
 
 
 </beans>

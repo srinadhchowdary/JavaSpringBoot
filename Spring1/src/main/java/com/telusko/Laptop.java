@@ -1,13 +1,17 @@
 package com.telusko;
 
-public class Laptop {
+
+import org.springframework.stereotype.Component;
+
+@Component("com2")
+public class Laptop implements Computer {
 
     public Laptop(){
-        System.out.println("Laptop is created");
+        System.out.println("Laptop object is created");
     }
 
-
+    @Override
     public void compile(){
-        System.out.println("lap refernce injected object reference from the bean ");
+        System.out.println("Compiling using Laptop");
     }
 }
