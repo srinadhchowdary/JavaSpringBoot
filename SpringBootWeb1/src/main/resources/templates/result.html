@@ -1,18 +1,17 @@
-<%@ page language="java" %>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <link rel="stylesheet" type="text/css" href="style.css">
     </head>
     <body>
         <div class="container">
 
-            <%--     <h2>Result is <%= session.getAttribute("result")  %></h2>  --%>
-
-            <%-- <h2>Result is: ${result} </h2> --%>
 
             <h2> Welcome to Telsuko </h2>
 
-            <p> ${alien} <p>
+            <p th:text="${alien}">${alien}</p>
+
+            <p th:text="'welcome to '+ ${course} +'world..! '"> </p>
+
 
         </div>
     </body>
