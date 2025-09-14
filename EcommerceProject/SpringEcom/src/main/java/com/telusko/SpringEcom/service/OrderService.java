@@ -30,24 +30,24 @@ public class OrderService {
 
         Order order = new Order();
 
-        String orderId = "ORD" + UUID.randomUUID().toString().substring(0,8).toUpperCase();
+        String orderId = "ORD" + UUID.randomUUID().toString().substring(0, 8).toUpperCase();
         order.setOrderId(orderId);
-
         order.setCustomerName(orderRequest.customerName());
         order.setEmail(orderRequest.email());
-
         order.setOrderDate(LocalDate.now());
         order.setStatus("PLACED");
 
-
-        //for orderItems
-
+        // For orderItems
         List<OrderItem> orderItems = new ArrayList<>();
-        for(OrderItemRequest itemRequest: orderRequest.items()){
+        for (OrderItemRequest itemRequest : orderRequest.items()) {
 
             Product product = productRepo.findById(itemRequest.productId())
                     .orElseThrow(() -> new RuntimeException("Product not found"));
 
+            // ✅ Stock validation
+            if (product.getStockQuantity() < itemRequest.quantity()) {
+                throw new RuntimeException("Not enough stock for product: " + product.getName());
+            }
 
             product.setStockQuantity(product.getStockQuantity() - itemRequest.quantity());
             productRepo.save(product);
@@ -63,27 +63,29 @@ public class OrderService {
         }
 
         order.setOrderItems(orderItems);
-        Order saveOrder = orderRepo.save(order);
+        Order savedOrder = orderRepo.save(order);
 
+        // Build response
         List<OrderItemResponse> itemResponses = new ArrayList<>();
-        for(OrderItem item: order.getOrderItems()){
+        for (OrderItem item : savedOrder.getOrderItems()) {
             OrderItemResponse orderItemResponse = new OrderItemResponse(
                     item.getProduct().getName(),
                     item.getQuantity(),
                     item.getTotalPrice()
             );
-
+            itemResponses.add(orderItemResponse); // ✅ missing before
         }
-        OrderResponse orderResponse = new OrderResponse(
-                saveOrder.getOrderId(),
-                saveOrder.getCustomerName(),
-                saveOrder.getStatus(),
-                saveOrder.getEmail(),
-                saveOrder.getOrderDate(),
+
+        return new OrderResponse(
+                savedOrder.getOrderId(),
+                savedOrder.getCustomerName(),
+                savedOrder.getEmail(),
+                savedOrder.getStatus(),
+                savedOrder.getOrderDate(),
                 itemResponses
         );
-        return null;
     }
+
 
     public List<OrderResponse> getAllOrderResponses(){
 

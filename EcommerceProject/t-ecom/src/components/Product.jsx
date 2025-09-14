@@ -111,15 +111,19 @@ const Product = () => {
             <button
               className="btn btn-primary btn-lg"
               onClick={handlAddToCart}
-              disabled={!product.productAvailable || product.stockQuantity == 0}
-            >
-              {product.stockQuantity !== 0 ? "Add to Cart" : "Out of Stock"}
+              disabled={!product.productAvailable || product.stockQuantity <= 0} // 👈 prevent negative values too
+>
+              {product.stockQuantity > 0 ? "Add to Cart" : "Out of Stock"}
             </button>
           </div>
 
           <p className="mb-4">
             <span className="me-2">Stock Available:</span>
-            <span className="fw-bold text-success">{product.stockQuantity}</span>
+            {product.stockQuantity > 0 ? (
+              <span className="fw-bold text-success">{product.stockQuantity}</span>
+            ) : (
+              <span className="fw-bold text-danger">Out of Stock</span>
+            )}
           </p>
 
           <div className="d-flex gap-2">
