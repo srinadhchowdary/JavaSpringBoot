@@ -12,7 +12,8 @@ public class HelloController {
 
     @GetMapping("hello")
     public String greet(HttpServletRequest request){
-        return "Hello worlds: "+ request.getSession().getId();
+//        return "Hello worlds: "+ request.getSession().getId();
+        return "Hello World";
     }
 
     @GetMapping("about")

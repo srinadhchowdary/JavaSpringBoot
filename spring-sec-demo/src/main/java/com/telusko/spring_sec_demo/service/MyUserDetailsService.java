@@ -22,12 +22,13 @@ public class MyUserDetailsService implements UserDetailsService {
 
         User user = userRepo.findByUsername(username);
 
-        if(user == null){
-            System.out.println("User 404");
+        if (user == null) {
+            System.out.println("User 404 - Username not found");
             throw new UsernameNotFoundException("User 404");
         }
-        System.out.println("User login successfully");
 
+        System.out.println("User found in DB: " + username);
         return new UserPrinciple(user);
     }
+
 }
