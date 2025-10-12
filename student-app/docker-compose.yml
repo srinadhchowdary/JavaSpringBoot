@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  app:
+    build: .
+    ports:
+      - "8090:8080"
+    networks:
+      - s-network
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: srinadh
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: telusko
+    ports:
+      - "5433:5432"
+    networks:
+      - s-network
+    volumes:
+      - postgres-s-data:/var/lib/postgresql/data
+
+networks:
+  s-network:
+    driver: bridge
+
+volumes:
+  postgres-s-data:
