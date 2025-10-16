@@ -17,7 +17,7 @@ public class JobRestController {
     private JobService service;
 
 
-    @GetMapping(value = "jobPosts",produces = {"application/json"})
+        @GetMapping(value = "jobPosts",produces = {"application/json"})
 //    @ResponseBody
     public List<JobPost> getAllJobs(){
         return service.getAllJobs();
