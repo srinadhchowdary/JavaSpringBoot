@@ -23,7 +23,7 @@ public class DemoJdbc {
         //need to mention demo's ipz address
         String url =  "jdbc:postgresql://localhost:5432/demo";
         String uname=  "postgres";
-        String pass=  "srinadhNTR9@";
+        String pass=  "${Password}";
 
 
         //for statement
